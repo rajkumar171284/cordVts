@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "newVTS",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
