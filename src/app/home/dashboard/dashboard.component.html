@@ -1,6 +1,128 @@
-<ion-content>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
 
 
-  <div id="newMap" #mapId3></div>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-card-subtitle class="ion-margin-start" color="light">Dashboard</ion-card-subtitle>
+    <ion-buttons *ngIf="updateAction.response && updateAction.response.length>0" slot="end">
 
+      <ion-icon class="ion-margin-end" (click)="presentActionSheet()" name="search"></ion-icon>
+
+      <!-- <ion-icon class="ion-margin-end" (click)="display=!display;display2=false" name="car"></ion-icon> -->
+
+      <ion-icon class="ion-margin-end" (click)="display2=!display2;" name="map"></ion-icon>
+    </ion-buttons>
+
+
+
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="map_container">
+
+
+  <!-- <ion-card> -->
+    <div id="newMap"class="map_view"></div>
+  <!-- </ion-card> -->
+
+
+
+  <div class="overlay-full" *ngIf="display2">
+    <ion-card color="light" *ngIf="updateAction.response" class="v-vert-tbl">
+      <!-- <ion-label color="dark">VEHICLES LIST</ion-label> -->
+      <!-- <ion-icon size="large" (click)="display2=false" name="flash">
+      </ion-icon> -->
+      <ion-icon color="primary" size="large" (click)="display2=false" name="close-circle-outline">
+
+      </ion-icon>
+
+      <ion-virtual-scroll [items]="updateAction.response">
+        <ion-card color="primary" *virtualItem="let item; let itemBounds = bounds;let idx=index">
+          <ion-grid >
+            <ion-row >
+
+              <ion-col color="primary" class="ion-no-padding v-list-content" size="12">
+                <ion-list class="ion-no-padding" color="primary">
+                  <ion-item color="primary" class="item-background-colord" lines="none">
+
+                    <!-- <ion-label vertical="center" horizontal="center" lines="none" justify-content-center>
+                      <span class="v-main-icon">
+                        <i class="fa fa-car "></i>
+
+
+                        <ion-icon size="large" [color]="mservice.ignitionStatus(item)" name="flash">
+                        </ion-icon>
+                      </span>
+
+                    </ion-label> -->
+                    <div style="display:flex">
+                      <div>
+                        <ion-card-subtitle size="small" class="v-list-label">IMEI-{{item.deviceId}} </ion-card-subtitle>
+                        <ion-badge size="small" class="ion-margin-end" color="warning">
+
+                          {{item.speed}}
+                          <ion-text size="small" class="ion-text-uppercases ">kmph</ion-text>
+                        </ion-badge>
+                      </div>
+                    </div>
+
+
+
+                    <!-- <ion-label>
+                      <ion-badge class="ion-margin-end" color="tertiary">
+
+                      <ion-icon (click)="initiatePolygon(item)"  class="ion-margin-start tertiary ion-margin-end" name="analytics"></ion-icon>
+                    </ion-badge>
+                    </ion-label> -->
+                  </ion-item>
+
+
+                </ion-list>
+
+
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-virtual-scroll>
+
+    </ion-card>
+
+  </div>
+
+
+  <div *ngIf="display" class="myfooter">
+    <ion-card class="v-cnt v-overview">
+      <!-- <ion-label color="dark">VEHICLES OVERVIEW</ion-label> -->
+
+      <ion-list color="light">
+        <ion-item color="light">
+          <ion-icon color="medium" size="5" name="car"></ion-icon>
+          <ion-text size="small">Total Vehicles</ion-text>
+
+          <ion-badge slot="end">{{listOverview.total}}</ion-badge>
+
+        </ion-item>
+        <ion-item color="light">
+          <ion-icon color="success" size="5" name="car"></ion-icon>
+          <ion-text size="small">
+            Active
+          </ion-text>
+          <ion-badge slot="end" color="tertiary">{{listOverview.active}}</ion-badge>
+
+        </ion-item>
+        <ion-item color="light">
+          <ion-icon color="danger" size="5" name="car"></ion-icon>
+
+          In-Active <ion-badge slot="end" color="tertiary">{{listOverview.inactive}}</ion-badge>
+
+        </ion-item>
+      </ion-list>
+
+    </ion-card>
+
+  </div>
 </ion-content>
